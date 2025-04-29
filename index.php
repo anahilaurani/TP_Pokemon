@@ -27,41 +27,45 @@
         <form class="d-flex">
             <input class="form-control me-2" type="text" placeholder="Usuario" aria-label="Usuario">
             <input class="form-control me-2" type="password" placeholder="Contraseña" aria-label="Contraseña">
-            <button class="btn btn-outline-success" type="submit">Ingresar</button>
+            <button class="btn btn-outline-success" type="submit" >Ingresar</button>
         </form>
     </div>
 </nav>
 
 <!-- Barra de búsqueda para ingresar el tipo y nombre -->
 <div class="container mt-4">
-    <form class="d-flex" action="" method="GET">
+    <form class="d-flex" action="./index.php" method="GET">
         <input class="form-control me-2" type="text" name="buscar" placeholder="Ingresa el nombre, tipo o numero de pokemon" aria-label="Tipo">
         <!-- Botón " -->
-        <button class="btn btn-outline-info" type="button">¿Quién es el Pokémon?</button>
+        <button class="btn btn-outline-info" type="submit" name="enviar">¿Quién es el Pokémon?</button>
     </form>
 
-    <!--Mostrar todos los pokemon que tengo -->
-    <div id="tabla" class="mt-4"></div>
+    <!--Mostrar todos los pokemon que tengo o filtrarlos -->
+    <div class="row mt-4">
+        <div class="col-sm-12">
+            <table class="table table-hover table-condensed table-bordered">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nro Identificador</th>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Tipo</th>
+                    <th>Descripción</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php include("tabla.php") ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 
 </div>
-
-
-
-
-
 
 <!-- Incluyendo los scripts de Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-    fetch('tabla.php')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('tabla').innerHTML = data;
-        })
-        .catch(error => console.error("Error",error));
-});
-</script>
 </html>
 

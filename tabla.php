@@ -1,45 +1,51 @@
-<div class="row">
-    <div class="col-sm-12">
-         <table class="table table-hover table-condensed table-bordered">
-             <tr>
-                 <td>id</td>
-                 <td>nro_identificador</td>
-                 <td>imagen</td>
-                 <td>nombre</td>
-                 <td>tipo</td>
-                 <td>descripcion</td>
-             </tr>
-             <?php
-             $database = mysqli_connect(
-                 $hostname = "localhost",
-                 $username = "root",
-                 $password = "",
-                 $database = "pokemon"
-             ) or die("ERROR AL CONECTAR");
+<?php
+// Conexión
+$database = mysqli_connect("localhost", "root", "", "pokemon") or die("ERROR AL CONECTAR");
 
-             $sql = "select * from pokemon";
-             $datos = mysqli_query($database, $sql);
+// Si no hay busqueda mostrar todos
+if (!isset($_GET['enviar']) && empty($_GET['buscar'])) {
+    $consulta = "SELECT * FROM pokemon";
 
-             while($ver = mysqli_fetch_array($datos)) {
+} else {
+    // Si hay búsqueda mostrar los que pida
+    $busqueda = mysqli_real_escape_string($database, $_GET['buscar']);
+    $consulta = "SELECT * FROM pokemon 
+                                 WHERE nombre LIKE '%$busqueda%' 
+                                 OR tipo LIKE '%$busqueda%' 
+                                 OR nro_identificador LIKE '%$busqueda%'";
+}
 
-                 /* abro y cierro el php en dos lugares porque esto dice que mientras
-                   halla datos me va lo va a repetir */
-                 echo "<tr>";
-                 echo "<td>" . $ver[0] . "</td>";
-                 echo "<td>" . $ver[1] . "</td>";
-                 echo "<td><img src='" . $ver[2] . "' width='50'></td>";
-                 echo "<td>" . $ver[3] . "</td>";
-                 echo "<td>" . $ver[4] . "</td>";
-                 echo "<td>" . $ver[5] . "</td>";
-                 echo "</tr>";
+$resultado = mysqli_query($database, $consulta);
 
-             }
-             mysqli_close($database);
-             ?>
+if (mysqli_num_rows($resultado) > 0) {
+    while ($ver = mysqli_fetch_array($resultado)) {
+    echo "<tr>";
+    echo "<td>" . $ver[0] . "</td>";
+    echo "<td>" . $ver[1] . "</td>";
+    echo "<td><img src='" . $ver[2] . "' width='50'></td>";
+    echo "<td>" . $ver[3] . "</td>";
+    echo "<td>" . $ver[4] . "</td>";
+    echo "<td>" . $ver[5] . "</td>";
+    echo "</tr>";
+   }
+} else{
+    echo "<div class='row m-4 '>pokemon no encontrado</div>";
 
-         </table>
-    </div>
+    $consulta = "SELECT * FROM pokemon";
+    $resultado = mysqli_query($database, $consulta);
 
-</div>
+    while ($ver = mysqli_fetch_array($resultado)) {
+        echo "<tr>";
+        echo "<td>" . $ver[0] . "</td>";
+        echo "<td>" . $ver[1] . "</td>";
+        echo "<td><img src='" . $ver[2] . "' width='50'></td>";
+        echo "<td>" . $ver[3] . "</td>";
+        echo "<td>" . $ver[4] . "</td>";
+        echo "<td>" . $ver[5] . "</td>";
+        echo "</tr>";
+    }
+}
 
 
+mysqli_close($database);
+?>

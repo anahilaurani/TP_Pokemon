@@ -1,1 +1,2 @@
-<?php
+<!--NOTA: cuando tenga que buscar si el usuario existe y si lo encuentra que me aparesca login o index si no
+  puedo usar el header(Location:'index.php') que me permite redirigir la pag si lo encuentra antes de seguir el codigo como que lo ocrta antes -->
