@@ -50,6 +50,7 @@
                     <th>Nombre</th>
                     <th>Tipo</th>
                     <th>Descripción</th>
+                    <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody>

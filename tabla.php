@@ -23,8 +23,21 @@ if (mysqli_num_rows($resultado) > 0) {
     echo "<td>" . $ver[0] . "</td>";
     echo "<td>" . $ver[1] . "</td>";
     echo "<td><img src='" . $ver[2] . "' width='50'></td>";
-    echo "<td>" . $ver[3] . "</td>";
-    echo "<td>" . $ver[4] . "</td>";
+    echo "<td><a href='pokemon.php?img=$ver[2]'>". $ver[3] . "</a></td>";
+        $tipo = strtolower(trim($ver[4]));
+        switch ($tipo) {
+            case 'planta':
+                echo "<td><img src='./img_pokemon/planta.jpg' width='50'></td>";
+                break;
+            case 'agua':
+                echo "<td><img src='./img_pokemon/agua.jpg' width='50'></td>";
+                break;
+            case 'fuego':
+                echo "<td><img src='./img_pokemon/fuego.jpg' width='50'></td>";
+                break;
+            default: echo "<td>" . $ver[4] . "</td>";
+                break;
+        }
     echo "<td>" . $ver[5] . "</td>";
     echo "</tr>";
    }
@@ -39,8 +52,21 @@ if (mysqli_num_rows($resultado) > 0) {
         echo "<td>" . $ver[0] . "</td>";
         echo "<td>" . $ver[1] . "</td>";
         echo "<td><img src='" . $ver[2] . "' width='50'></td>";
-        echo "<td>" . $ver[3] . "</td>";
-        echo "<td>" . $ver[4] . "</td>";
+        echo "<td><a href='pokemon.php'>". $ver[3] . "</td>";
+        $tipo = strtolower(trim($ver[4]));
+        switch ($tipo) {
+            case 'planta':
+                echo "<td><img src='./img_pokemon/planta.jpg' width='50'></td>";
+                break;
+            case 'agua':
+                echo "<td><img src='./img_pokemon/agua.jpg' width='50'></td>";
+                break;
+            case 'fuego':
+                echo "<td><img src='./img_pokemon/fuego.jpg' width='50'></td>";
+                break;
+            default: echo "<td>" . $ver[4] . "</td>";
+                break;
+        }
         echo "<td>" . $ver[5] . "</td>";
         echo "</tr>";
     }
