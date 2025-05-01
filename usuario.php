@@ -6,12 +6,14 @@ if (isset($_POST['loguear'])){
 
     //pregunto si esta vacio
     if (empty($_POST['user']) && empty($_POST['pass'])) {
-        echo "<script> alert('campos vacios ingrese usuario y contrasenia')</script>";
-    }
 
-    $user = $_POST['user'];
-    $pass = $_POST['pass'];
-    if(!empty($user) && !empty($pass)){
+        echo "<script> alert('campos vacios ingrese usuario y contrasenia')</script>";
+
+    }else{
+
+        $user = $_POST['user'];
+        $pass = $_POST['pass'];
+
         // Conexión
         $database = mysqli_connect("localhost", "root", "", "pokemon") or die("ERROR AL CONECTAR");
         $sql = "SELECT * FROM usuario WHERE user like '$user' and pass like '$pass'";
@@ -19,10 +21,9 @@ if (isset($_POST['loguear'])){
 
         if (mysqli_num_rows($resultado) == 1 ) {
             session_start();
-            $_SESSION['user'] = $user;
-            
-            echo "<script> alert('BIENVENIDO')</script>";
-            require_once ("./paginaUsuario.php");
+            $_SESSION['user'] =$user;
+            header("Location: index.php");
+            exit;
 
         }else{
             echo "<br>";

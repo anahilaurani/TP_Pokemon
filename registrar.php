@@ -52,7 +52,6 @@
              mysqli_stmt_bind_param($insertar, "sss", $gmail, $usuario, $password);
 
              if (mysqli_stmt_execute($insertar)) {
-                 echo "se registro correctamente el usuario";
                  header("Location:./index.php");
                  echo "<script> alert('registro exitoso')</script>";
              }else{

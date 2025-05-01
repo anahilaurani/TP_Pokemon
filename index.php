@@ -14,6 +14,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <!-- Logo a la izquierda -->
+        <img src="./logo_pokemon.png" alt="pokemon" width="40" height="20">
         <a class="navbar-brand" href="#">Logo</a>
 
         <!-- Título en el centro -->
@@ -21,12 +22,24 @@
             <span class="navbar-text">Pokedex</span>
         </div>
 
-        <!-- Formulario a la derecha con usuario, contraseña y botón -->
-        <form class="d-flex" action="./usuario.php" method="POST">
-            <input class="form-control me-2" type="text" name="user" placeholder="Usuario" aria-label="Usuario">
-            <input class="form-control me-2" type="password" name="pass" placeholder="Contraseña" aria-label="Contraseña">
-            <button class="btn btn-outline-success" type="submit" name="loguear">Ingresar</button>
-        </form>
+        <?php
+        session_start();
+        if (!empty($_SESSION['user'])){
+            echo $_SESSION['user'] . " Admin";
+//echo"<button class='btn btn-outline-success m-2' type='submit' name='loguear'>cerrar</button>";
+           }else{
+               ?>
+               <!-- Formulario a la derecha con usuario, contraseña y botón -->
+               <form class="d-flex" action="./usuario.php" method="POST">
+                   <input class="form-control me-2" type="text" name="user" placeholder="Usuario" aria-label="Usuario">
+                   <input class="form-control me-2" type="password" name="pass" placeholder="Contraseña" aria-label="Contraseña">
+                   <button class="btn btn-outline-success" type="submit" name="loguear">Ingresar</button>
+               </form>
+        <?php
+           }
+        ?>
+
+
     </div>
 </nav>
 
@@ -44,19 +57,30 @@
             <table class="table table-hover table-condensed table-bordered">
                 <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Nro Identificador</th>
                     <th>Imagen</th>
                     <th>Nombre</th>
                     <th>Tipo</th>
                     <th>Descripción</th>
+                    <?php
+                    if (!empty($_SESSION['user'])){
+                        echo "<th>Acciones</th>";
+                    }?>
                 </tr>
                 </thead>
                 <tbody>
-                <?php require_once("tabla.php") ?>
+                <?php
+                require_once("tabla.php");
+                ?>
                 </tbody>
             </table>
         </div>
+        <?php
+        if (!empty($_SESSION['user'])) {
+            echo "<a href='paginaUsuario.php'>NUEVO POKEMON</a>";
+        }
+        ?>
+
     </div>
 
 
@@ -66,4 +90,3 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
